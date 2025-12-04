@@ -22,3 +22,12 @@ export const getSessions = async () => {
     return [];
   }
 };
+
+export const clearSessions = async () => {
+  try {
+    await AsyncStorage.removeItem(DATA_KEY);
+    console.log("All data cleared successfully");
+  } catch (e) {
+    console.error("Error clearing data:", e);
+  }
+};
