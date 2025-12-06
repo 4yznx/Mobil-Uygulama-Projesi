@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { View, Text, StyleSheet, Alert, AppState } from "react-native";
 
-import TimerDisplay from "../components//home/TimerDisplay";
+import TimerDisplay from "../components/home/TimerDisplay";
 import TimeAdjustButtons from "../components/home/TimeAdjustButtons";
 import CategorySelector from "../components/home/CategorySelector";
 import ControlButtons from "../components/home/ControlButtons";
+import { saveSession } from "../services/storage";
 
 export default function HomeScreen() {
   const [sessionMinutes, setSessionMinutes] = useState(25);
@@ -83,6 +84,7 @@ export default function HomeScreen() {
     return () => subscription.remove();
   }, []);
 
+  // دوال مساعدة
   const formatTime = (seconds) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -111,9 +113,21 @@ export default function HomeScreen() {
     setIsRunning(true);
   };
 
-  const handleStop = (finished = false) => {
+  const handleStop = async (finished = false) => {
     setIsRunning(false);
-    if (finished) showSummary();
+
+    if (finished) {
+      const sessionData = {
+        id: Date.now().toString(),
+        date: new Date().toISOString(),
+        duration: sessionMinutes * 60,
+        category: category,
+        distractions: distractions,
+      };
+
+      await saveSession(sessionData);
+      showSummary();
+    }
   };
 
   const handleReset = () => {
@@ -123,12 +137,14 @@ export default function HomeScreen() {
   };
 
   const showSummary = () => {
-    const elapsed = sessionMinutes * 60 - timeLeft;
-    const mins = Math.floor(elapsed / 60);
+    const mins = sessionMinutes;
 
     Alert.alert(
       "Seans Özeti",
-      `Süre: ${mins} dakika\nKategori: ${category}\nDikkat Dağınıklığı: ${distractions}`
+      `Süre: ${mins} dakika\nKategori: ${category}\nDikkat Dağınıklığı: ${distractions}`,
+      [
+        { text: "Tamam", onPress: () => handleReset() }, // تصفير عند الضغط على تم
+      ]
     );
   };
 
