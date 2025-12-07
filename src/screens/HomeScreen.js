@@ -1,11 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, StyleSheet, Alert, AppState } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  AppState,
+  ImageBackground,
+} from "react-native";
 
 import TimerDisplay from "../components/home/TimerDisplay";
 import TimeAdjustButtons from "../components/home/TimeAdjustButtons";
 import CategorySelector from "../components/home/CategorySelector";
 import ControlButtons from "../components/home/ControlButtons";
 import { saveSession } from "../services/storage";
+
+const bgImage = require("../../assets/background.jpg");
 
 export default function HomeScreen() {
   const [sessionMinutes, setSessionMinutes] = useState(25);
@@ -84,7 +93,6 @@ export default function HomeScreen() {
     return () => subscription.remove();
   }, []);
 
-  // دوال مساعدة
   const formatTime = (seconds) => {
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
@@ -142,53 +150,53 @@ export default function HomeScreen() {
     Alert.alert(
       "Seans Özeti",
       `Süre: ${mins} dakika\nKategori: ${category}\nDikkat Dağınıklığı: ${distractions}`,
-      [
-        { text: "Tamam", onPress: () => handleReset() }, // تصفير عند الضغط على تم
-      ]
+      [{ text: "Tamam", onPress: () => handleReset() }]
     );
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.mainTitle}>Odaklanma Takibi</Text>
+    <ImageBackground
+      source={bgImage}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <TimerDisplay time={formatTime(timeLeft)} />
 
-      <TimerDisplay time={formatTime(timeLeft)} />
+        <TimeAdjustButtons
+          disabled={isRunning}
+          onIncrease={increaseTime}
+          onDecrease={decreaseTime}
+        />
 
-      <TimeAdjustButtons
-        disabled={isRunning}
-        onIncrease={increaseTime}
-        onDecrease={decreaseTime}
-      />
+        <CategorySelector
+          categories={categories}
+          selected={category}
+          onSelect={setCategory}
+          disabled={isRunning}
+        />
 
-      <CategorySelector
-        categories={categories}
-        selected={category}
-        onSelect={setCategory}
-        disabled={isRunning}
-      />
-
-      <ControlButtons
-        isRunning={isRunning}
-        onStart={handleStart}
-        onPause={() => handleStop(false)}
-        onReset={handleReset}
-      />
-    </View>
+        <ControlButtons
+          isRunning={isRunning}
+          onStart={handleStart}
+          onPause={() => handleStop(false)}
+          onReset={handleReset}
+        />
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    width: "100%",
+    height: "100%",
+  },
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     padding: 25,
     alignItems: "center",
     justifyContent: "center",
-  },
-  mainTitle: {
-    fontSize: 26,
-    fontWeight: "700",
-    marginBottom: 15,
-    color: "#222",
   },
 });
