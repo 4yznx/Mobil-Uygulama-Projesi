@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
 
   sectionTitle: {
     fontSize: 20,
-    fontWeight: "600",
+    fontWeight: "700",
     marginBottom: 15,
-    color: "#333",
+    color: "white",
   },
 
   categoryBox: {
@@ -57,20 +57,19 @@ const styles = StyleSheet.create({
   catBtn: {
     paddingVertical: 10,
     paddingHorizontal: 18,
-    backgroundColor: "#f3f3f3",
     borderRadius: 20,
     marginHorizontal: 5,
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "grey",
+    backgroundColor: "white",
   },
 
   catBtnActive: {
-    backgroundColor: "#4A90E2",
-    borderColor: "#4A90E2",
+    backgroundColor: "",
+    borderColor: "grey",
   },
 
   catText: {
-    color: "#444",
     fontSize: 15,
   },
 
