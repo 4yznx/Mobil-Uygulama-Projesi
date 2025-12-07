@@ -39,8 +39,8 @@ export default function ControlButtons({
 const styles = StyleSheet.create({
   buttons: {
     flexDirection: "row",
-    gap: 3,
     marginTop: 10,
+    gap: 3,
   },
   btn: {
     flexDirection: "row",
