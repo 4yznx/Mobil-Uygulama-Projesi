@@ -31,8 +31,8 @@ export default function TimeAdjustButtons({
 const styles = StyleSheet.create({
   adjustRow: {
     flexDirection: "row",
-    gap: 40,
     marginBottom: 30,
+    gap: 50,
   },
   adjustBtn: {
     backgroundColor: "#e9e9e9",
