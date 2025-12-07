@@ -1,45 +1,14 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 
-import HomeScreen from "./src/screens/HomeScreen";
-import ReportsScreen from "./src/screens/ReportsScreen";
-
-const Tab = createBottomTabNavigator();
+import TabNavigator from "./src/navigation/TabNavigator";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
-            let iconName;
-
-            if (route.name === "Ana Sayfa") {
-              iconName = focused ? "timer" : "timer-outline";
-            } else if (route.name === "Raporlar") {
-              iconName = focused ? "bar-chart" : "bar-chart-outline";
-            }
-
-            return <Ionicons name={iconName} size={size} color={color} />;
-          },
-          tabBarActiveTintColor: "tomato",
-          tabBarInactiveTintColor: "gray",
-        })}
-      >
-        <Tab.Screen
-          name="Ana Sayfa"
-          component={HomeScreen}
-          options={{ title: "Home" }}
-        />
-
-        <Tab.Screen
-          name="Raporlar"
-          component={ReportsScreen}
-          options={{ title: "Dashbaord" }}
-        />
-      </Tab.Navigator>
+      <StatusBar style="light" />
+      <TabNavigator />
     </NavigationContainer>
   );
 }
