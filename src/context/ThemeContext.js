@@ -1,14 +1,11 @@
-// src/context/ThemeContext.js
 import React, { createContext, useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  // اللون الافتراضي (أبيض فاتح)
   const [themeColor, setThemeColor] = useState("#F5F7FA");
 
-  // تحميل اللون المحفوظ عند فتح التطبيق
   useEffect(() => {
     const loadTheme = async () => {
       try {
@@ -21,7 +18,6 @@ export const ThemeProvider = ({ children }) => {
     loadTheme();
   }, []);
 
-  // دالة تغيير اللون وحفظه
   const updateTheme = async (color) => {
     setThemeColor(color);
     await AsyncStorage.setItem("@app_theme", color);
@@ -34,5 +30,5 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
-// Hook بسيط لاستخدام الثيم في أي مكان
 export const useTheme = () => useContext(ThemeContext);
+
