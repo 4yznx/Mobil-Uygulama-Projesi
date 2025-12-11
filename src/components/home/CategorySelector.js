@@ -116,9 +116,4 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
   },
-  hintText: {
-    fontSize: 11,
-    color: "#999",
-    marginTop: 5,
-  },
 });
