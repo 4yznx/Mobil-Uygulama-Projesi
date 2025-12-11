@@ -7,7 +7,7 @@ const screenWidth = Dimensions.get("window").width;
 export default function WeeklyChart({ data }) {
   return (
     <View style={styles.chartContainer}>
-      <Text style={styles.sectionTitle}>📅 Son 7 Günlük Aktivite</Text>
+      <Text style={styles.sectionTitle}>Son 7 Günlük Aktivite</Text>
 
       <BarChart
         data={data}
@@ -50,11 +50,10 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#34495E",
     marginBottom: 15,
+    color: "#333",
   },
   chartStyle: {
-    borderRadius: 16,
     paddingRight: 30,
   },
 });
