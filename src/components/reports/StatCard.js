@@ -5,13 +5,11 @@ import { Ionicons } from "@expo/vector-icons";
 export default function StatCard({ title, value, icon, color }) {
   return (
     <View style={styles.statCard}>
-      {/* الجزء العلوي: أيقونة وعنوان */}
       <View style={styles.cardHeader}>
         <Ionicons name={icon} size={18} color={color} />
         <Text style={styles.statLabel}>{title}</Text>
       </View>
 
-      {/* الجزء السفلي: الرقم داخل صندوق ملون */}
       <View style={[styles.valueBox, { backgroundColor: color + "15" }]}>
         <Text style={[styles.statValue, { color: color }]}>{value}</Text>
       </View>
@@ -24,7 +22,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 16,
     padding: 12,
-    width: "31%", // 3 بطاقات في الصف
+    width: "31%",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.05,
