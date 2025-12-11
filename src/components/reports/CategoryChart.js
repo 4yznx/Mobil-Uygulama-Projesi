@@ -8,7 +8,7 @@ const screenWidth = Dimensions.get("window").width;
 export default function CategoryChart({ data, hasData }) {
   return (
     <View style={[styles.chartContainer, { marginBottom: 40 }]}>
-      <Text style={styles.sectionTitle}>📂 Kategori Dağılımı</Text>
+      <Text style={styles.sectionTitle}>Kategori Dağılımı (dk)</Text>
 
       {hasData ? (
         <PieChart
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
   chartContainer: {
     backgroundColor: "#fff",
     borderRadius: 20,
-    padding: 20,
     marginBottom: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -46,10 +45,11 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   sectionTitle: {
+    padding: 20,
     fontSize: 18,
     fontWeight: "bold",
-    color: "#34495E",
     marginBottom: 15,
+    color: "#333",
   },
   emptyState: {
     alignItems: "center",
