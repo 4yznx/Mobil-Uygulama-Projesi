@@ -7,10 +7,11 @@ export default function TimerDisplay({ time }) {
 
 const styles = StyleSheet.create({
   timer: {
-    fontSize: 100,
+    fontSize: 90,
     fontWeight: "700",
-    color: "grey",
-    marginBottom: 30,
+    color: "#000000",
+    marginBottom: 0,
     textAlign: "center",
+    letterSpacing: 2,
   },
 });
