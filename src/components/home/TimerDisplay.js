@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   timer: {
     fontSize: 90,
     fontWeight: "700",
-    color: "#000000",
+    color: "#333",
     marginBottom: 0,
     textAlign: "center",
     letterSpacing: 2,
