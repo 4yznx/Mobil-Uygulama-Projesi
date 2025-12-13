@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from "react";
-import { View, StyleSheet, ScrollView, Alert } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import { getSessions, clearSessions } from "../services/storage";
+import { getSessions } from "../services/storage";
+import { useTheme } from "../context/ThemeContext";
 
 import StatCard from "../components/reports/StatCard";
 import WeeklyChart from "../components/reports/WeeklyChart";
@@ -9,6 +10,7 @@ import CategoryChart from "../components/reports/CategoryChart";
 import ReportsHeader from "../components/reports/ReportsHeader";
 
 export default function ReportsScreen() {
+  const { themeColor } = useTheme();
   const [sessions, setSessions] = useState([]);
   const [stats, setStats] = useState({
     todayFocus: 0,
@@ -58,21 +60,6 @@ export default function ReportsScreen() {
       totalFocus: totalTime,
       totalDistractions: totalDist,
     });
-  };
-
-  const handleClearData = () => {
-    Alert.alert("Reset Data", "Are you sure you want to delete all history?", [
-      { text: "Cancel", style: "cancel" },
-      {
-        text: "Delete",
-        style: "destructive",
-        onPress: async () => {
-          await clearSessions();
-          setSessions([]);
-          setStats({ todayFocus: 0, totalFocus: 0, totalDistractions: 0 });
-        },
-      },
-    ]);
   };
 
   const getRandomColor = () => {
@@ -125,38 +112,41 @@ export default function ReportsScreen() {
   })();
 
   return (
-    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      <ReportsHeader onClear={handleClearData} />
-      <View style={styles.statsRow}>
-        <StatCard
-          title="Bugün"
-          value={`${Math.round(stats.todayFocus)} dk`}
-          icon="timer-outline"
-          color="#4A90E2"
-        />
-        <StatCard
-          title="Toplam"
-          value={`${Math.round(stats.totalFocus)} dk`}
-          icon="bar-chart-outline"
-          color="#66BB6A"
-        />
-        <StatCard
-          title="Dikkat Dağ."
-          value={`${stats.totalDistractions}`}
-          icon="alert-circle-outline"
-          color="#EF5350"
-        />
-      </View>
-      <WeeklyChart data={weeklyData} />
-      <CategoryChart data={categoryData} hasData={sessions.length > 0} />
-    </ScrollView>
+    <View style={[styles.container, { backgroundColor: themeColor }]}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <ReportsHeader />
+
+        <View style={styles.statsRow}>
+          <StatCard
+            title="Bugün"
+            value={`${Math.round(stats.todayFocus)} dk`}
+            icon="timer-outline"
+            color="#4A90E2"
+          />
+          <StatCard
+            title="Toplam"
+            value={`${Math.round(stats.totalFocus)} dk`}
+            icon="bar-chart-outline"
+            color="#66BB6A"
+          />
+          <StatCard
+            title="Dikkat Dağ."
+            value={`${stats.totalDistractions}`}
+            icon="alert-circle-outline"
+            color="#EF5350"
+          />
+        </View>
+
+        <WeeklyChart data={weeklyData} />
+        <CategoryChart data={categoryData} hasData={sessions.length > 0} />
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5F7FA",
     padding: 20,
   },
   statsRow: {
