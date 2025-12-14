@@ -2,6 +2,7 @@ import * as SQLite from "expo-sqlite";
 
 let db = null;
 
+// دالة لفتح قاعدة البيانات (Singleton Pattern)
 const getDB = async () => {
   if (!db) {
     db = await SQLite.openDatabaseAsync("focus_app.db");
