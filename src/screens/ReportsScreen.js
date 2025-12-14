@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import { getSessions } from "../services/storage";
+import { getSessions } from "../services/database";
 import { useTheme } from "../context/ThemeContext";
 
 import StatCard from "../components/reports/StatCard";
