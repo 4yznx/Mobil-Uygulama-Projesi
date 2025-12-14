@@ -8,4 +8,5 @@ Proje dosyalarını indirdikten sonra (`node_modules` klasörü olmadan), aşağ
 
 Terminali proje klasöründe açın ve şu komutu yazın. Bu komut, `package.json` dosyasındaki tüm kütüphaneleri otomatik olarak indirir:
 
-=> npm install
+=> npm install 
+=> npx expo start
