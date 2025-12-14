@@ -30,7 +30,7 @@ import {
   addCategoryToStorage,
   removeCategoryFromStorage,
   deleteSessionsByCategory,
-} from "../services/storage";
+} from "../services/database";
 import { useTheme } from "../context/ThemeContext";
 
 export default function HomeScreen() {
@@ -148,26 +148,30 @@ export default function HomeScreen() {
         nextState === "active"
       ) {
         if (pausedByDistraction.current) {
-          Alert.alert("Dikkat!", "Odaklanma bozuldu. Devam edilsin mi?", [
-            {
-              text: "Hayır",
-              onPress: () => {
-                pausedByDistraction.current = false;
-                setIsRunning(false);
-                setTimeLeft(sessionMinutesRef.current * 60);
-                setDistractions(0);
-                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+          Alert.alert(
+            "Dikkat!",
+            "Odaklanma bozuldu. Devam etmek istiyor musunuz?",
+            [
+              {
+                text: "Hayır",
+                onPress: () => {
+                  pausedByDistraction.current = false;
+                  setIsRunning(false);
+                  setTimeLeft(sessionMinutesRef.current * 60);
+                  setDistractions(0);
+                  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+                },
+                style: "cancel",
               },
-              style: "cancel",
-            },
-            {
-              text: "Evet",
-              onPress: () => {
-                setIsRunning(true);
-                pausedByDistraction.current = false;
+              {
+                text: "Evet",
+                onPress: () => {
+                  setIsRunning(true);
+                  pausedByDistraction.current = false;
+                },
               },
-            },
-          ]);
+            ]
+          );
         }
       }
       appState.current = nextState;
@@ -233,7 +237,7 @@ export default function HomeScreen() {
 
   const handleStart = () => {
     if (!category) {
-      Alert.alert("Hata", "Kategori seçiniz");
+      Alert.alert("Hata", "Kategori seçiniz.");
       return;
     }
     setTimePickerVisible(false);
@@ -269,7 +273,7 @@ export default function HomeScreen() {
 
   const showSummary = () => {
     Alert.alert(
-      "Seans Tamamlandı! 🎉",
+      "Seans Tamamlandı!",
       `Süre: ${sessionMinutes} dakika\nKategori: ${category}\nDikkat Dağınıklığı: ${distractions}`,
       [{ text: "Tamam", onPress: handleReset }]
     );
